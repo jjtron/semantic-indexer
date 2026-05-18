@@ -4,13 +4,13 @@ This app will enable you to pull in a set of documents (in .pdf, .odt, .docx) an
 
 The application features a web-based user interface accessible via any browser at http://localhost:<port_number>.
 
-Ollama is used as the LLM to format and summarize your search results into a Markdown (.md) like display.
+Ollama is used as the LLM to format and summarize your search results into a Markdown (.md) like display, highlighting the most important text.
 
 The LLM does not add any external information beyond what is found in the retrieved documents.
 
 In addition to the summarized chat results, a list of the documents and page numbers from where the information was retreived will be provided in a drop down.
 
-# Instructions
+## Instructions
 
 After cloning this app from GitHub onto your machine . . .
 
