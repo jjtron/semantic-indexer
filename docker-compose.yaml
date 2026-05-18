@@ -1,0 +1,48 @@
+services:
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_models:/root/.ollama
+
+  db:
+    image: pgvector/pgvector:pg17
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER:-user}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-password}
+      POSTGRES_DB: ${DB_NAME:-rag_db}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  backend:
+    image: d0kkm96s7stm/rag-backend:latest 
+    environment:
+      - DATABASE_URL=postgresql://${DB_USER:-user}:${DB_PASSWORD:-password}@db:5432/${DB_NAME:-rag_db}
+      - OLLAMA_HOST=http://ollama:11434
+      - PYTHONUNBUFFERED=1
+      - HF_TOKEN=${HF_TOKEN}
+    volumes:
+      - ./docs:/app/docs # Kept this, assuming users need a local folder to drop their documents into!
+    ports:
+      - "${BACKEND_PORT:-8080}:8080"
+    depends_on:
+      - ollama
+      - db
+
+  frontend:
+    image: d0kkm96s7stm/rag-frontend:latest
+    ports:
+      - "${FRONTEND_PORT:-3003}:3003"
+    stdin_open: true
+    tty: true
+    depends_on:
+      - backend
+
+volumes:
+  ollama_models:
+  pgdata:
+
