@@ -39,7 +39,7 @@ Finally, run this command in the terminal
     ```bash
     docker compose exec ollama ollama run llama3.2:latest
 
-Now, you can open up a browser and go to http://localhost:<FRONTEND_PORT as in your .env file>Add 
+Now, you can open up a browser and go to http://localhost:<FRONTEND_PORT as in your .env file>
 
 > [!TIP]
 > If you are a MAC user with GPUs, and you want to utilize the full computing power of your machine,
