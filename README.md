@@ -41,6 +41,25 @@ Finally, run this command in the terminal
 
 Now, you can open up a browser and go to http://localhost:<FRONTEND_PORT as in your .env file>
 
+## Hardware Requirements
+    Recommended Requirements (For a smooth experience)
+    This ensures fast response times (tokens per second) and snappy vector search performance.
+
+    RAM: 32 GB
+
+    Why: Gives the backend plenty of breathing room for chunking documents, 
+    embedding generation, and handling concurrent requests without bottlenecking the system.
+
+    GPU (Highly Recommended for Ollama):
+
+    NVIDIA: GTX 1660 / RTX 3060 or higher with at least 6 GB of VRAM.
+
+    Apple Silicon: Mac with 16 GB or 32 GB of Unified Memory (M1/M2/M3 Pro/Max).
+
+    Why: Running LLMs on CPU is notoriously slow. A GPU speeds up token generation by 5x to 10x.
+
+    Storage: 25 GB+ of free NVMe SSD space.
+
 > [!TIP]
 > If you are a MAC user with GPUs, and you want to utilize the full computing power of your machine,
 > 1. Install Ollama
@@ -59,7 +78,7 @@ services:
   backend:
     image: d0kkm96s7stm/rag-backend:latest 
     environment:
-      - DATABASE_URL=postgresql://${DB_USER:-user}:${DB_PASSWORD:-password}@db:5432/${DB_NAME:-rag_db}
+      - DATABASE_URL=postgresql://${DB_USER}:${DB_PASSWORD}@db:5432/${DB_NAME}
       - OLLAMA_HOST=http://host.docker.internal:11434 # CHANGE THIS LINE WHEN USING NATIVE HOST MAC-MINI GPUs
       - PYTHONUNBUFFERED=1
       - HF_TOKEN=${HF_TOKEN}
