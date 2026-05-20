@@ -1,12 +1,10 @@
 services:
   ollama:
     image: ollama/ollama:latest
-    ports:
-      - "11434:11434"
     volumes:
       - ollama_models:/root/.ollama
 
-  db:
+  db-one:
     image: pgvector/pgvector:pg17
     restart: always
     env_file:
@@ -15,15 +13,13 @@ services:
       POSTGRES_USER: "${DB_USER}"
       POSTGRES_PASSWORD: "${DB_PASSWORD}"
       POSTGRES_DB: "${DB_NAME}"
-    ports:
-      - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
 
   backend:
     image: d0kkm96s7stm/rag-backend:latest 
     environment:
-      - DATABASE_URL=postgresql://${DB_USER}:${DB_PASSWORD}@db:5432/${DB_NAME}
+      - DATABASE_URL=postgresql://${DB_USER}:${DB_PASSWORD}@db-${DB_SUFFIX}:5432/${DB_NAME}
       - OLLAMA_HOST=http://ollama:11434
       - PYTHONUNBUFFERED=1
       - HF_TOKEN=${HF_TOKEN}
@@ -31,13 +27,14 @@ services:
       - DB_USER=${DB_USER}
       - DB_PASSWORD=${DB_PASSWORD}
       - DB_NAME=${DB_NAME}
+      - DB_SUFFIX=${DB_SUFFIX}
     volumes:
       - ./docs:/app/docs
     ports:
       - "${BACKEND_PORT}:${BACKEND_PORT}"
     depends_on:
       - ollama
-      - db
+      - db-${DB_SUFFIX}
 
   frontend:
     image: d0kkm96s7stm/rag-frontend:latest

@@ -10,7 +10,7 @@ The LLM does not add any external information beyond what is found in the retrie
 
 In addition to the summarized chat results, a list of the documents and page numbers from where the information was retreived will be provided in a drop down.
 
-## Instructions
+## 🚀 Instructions
 
 After cloning this app from GitHub onto your machine . . .
 
@@ -24,11 +24,13 @@ NOTE: the FRONTEND_PORT key is limited to 3000 through 3009
 
     ```
     HF_TOKEN=your_huggingface_token_here
+    DB_SUFFIX=one
     DB_USER=user
     DB_PASSWORD=password
     DB_NAME=rag_db
-    FRONTEND_PORT=3003
+    FRONTEND_PORT=3000
     BACKEND_PORT=8080
+    COMPOSE_PROJECT_NAME=project_one
 
 Put your .env file in the root of your app folder
 
@@ -44,7 +46,7 @@ Finally, run this command in the terminal
 
 Now, you can open up a browser and go to http://localhost:<FRONTEND_PORT as in your .env file>
 
-## Hardware Requirements
+## 🚀 Hardware Requirements
     Recommended Requirements (For a smooth experience)
     This ensures fast response times (tokens per second) and snappy vector search performance.
 
@@ -63,7 +65,34 @@ Now, you can open up a browser and go to http://localhost:<FRONTEND_PORT as in y
 
     Storage: 25 GB+ of free NVMe SSD space.
 
-> [!TIP]
+## 🚀 Running Multiple Instances (Avoiding Name Clashes)
+
+This application is designed to be fully isolated so you can run multiple instances of it side-by-side on the same machine. However, due to limitations in Docker Compose's configuration parsing, you must manually align your service naming if you change the database suffix.
+
+### $\quad$ Steps to Deploy an Additional Instance:
+
+1. **Update your `.env` file:**
+
+   Change the `DB_SUFFIX` to uniquely identify this instance (e.g., `analytics`, `prod`, `testing`):
+
+   DB_SUFFIX=analytics
+
+2. **Update your `docker-compose.yaml` file:**
+
+   Change the service name of the database service
+   
+   FROM db-home TO db-< whatever >
+
+   EXAMPLE:
+
+   db-analytics: # NOTE: This MUST match this pattern: db-DB_SUFFIX, where DB_SUFFIX is defined in .env file
+
+   $\quad$ image: pgvector/pgvector:pg17
+
+   $\quad$ . . .
+
+
+> 🚀 [!TIP]
 > If you are a MAC user with GPUs, and you want to utilize the full computing power of your machine,
 > 1. Install Ollama
 > 2. Modify the provided docker-compose.yaml file as in the following snippet . . .
@@ -72,8 +101,6 @@ Now, you can open up a browser and go to http://localhost:<FRONTEND_PORT as in y
 services:
   # ollama: # COMMENT THESE LINES OUT WHEN USING NATIVE HOST MAC-MINI GPUs
   #   image: ollama/ollama:latest
-  #   ports:
-  #     - "11434:11434"
   #   volumes:
   #     - ollama_models:/root/.ollama
     ...
@@ -81,7 +108,7 @@ services:
   backend:
     image: d0kkm96s7stm/rag-backend:latest 
     environment:
-      - DATABASE_URL=postgresql://${DB_USER}:${DB_PASSWORD}@db:5432/${DB_NAME}
+      - DATABASE_URL=postgresql://${DB_USER}:${DB_PASSWORD}@db-${DB_SUFFIX}:5432/${DB_NAME}
       - OLLAMA_HOST=http://host.docker.internal:11434 # CHANGE THIS LINE WHEN USING NATIVE HOST MAC-MINI GPUs
       - PYTHONUNBUFFERED=1
       - HF_TOKEN=${HF_TOKEN}
@@ -89,7 +116,7 @@ services:
 
     depends_on:
       # - ollama # COMMENT THIS OUT WHEN USING NATIVE HOST MAC-MINI GPUs
-      - db
+      - db-${DB_SUFFIX}
 ```
 
 
