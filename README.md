@@ -18,8 +18,11 @@ Install the Docker Desktop Application on your machine and start it
 
 Create a /docs folder in the root of your app folder
 
-Make your .env file with the following keys
+Make your .env file with keys as in the following EXAMPLE .env file
 
+NOTE: the FRONTEND_PORT key is limited to 3000 through 3009
+
+    ```
     HF_TOKEN=your_huggingface_token_here
     DB_USER=user
     DB_PASSWORD=password
