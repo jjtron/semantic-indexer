@@ -4,7 +4,7 @@ services:
     volumes:
       - ollama_models:/root/.ollama
 
-  db-one:
+  db-one: # NOTE: This MUST match this pattern: db-DB_SUFFIX, where DB_SUFFIX is defined in .env file
     image: pgvector/pgvector:pg17
     restart: always
     env_file:
