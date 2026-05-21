@@ -118,7 +118,8 @@ services:
   #   image: ollama/ollama:latest
   #   volumes:
   #     - ollama_models:/root/.ollama
-    ...
+    
+  ...
 
   backend:
     image: d0kkm96s7stm/rag-backend:latest 
@@ -132,6 +133,12 @@ services:
     depends_on:
       # - ollama # COMMENT THIS OUT WHEN USING NATIVE HOST MAC-MINI GPUs
       - db-${DB_SUFFIX}
+  
+  ...
+
+volumes:
+  # ollama_models: # COMMENT THIS OUT WHEN USING NATIVE HOST MAC-MINI GPUs
+  pgdata:
 ```
 
 
