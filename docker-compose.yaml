@@ -20,7 +20,7 @@ services:
     image: d0kkm96s7stm/rag-backend:1.0
     environment:
       - DATABASE_URL=postgresql://${DB_USER}:${DB_PASSWORD}@db-${DB_SUFFIX}:5432/${DB_NAME}
-      - OLLAMA_HOST=http://ollama:11434
+      - OLLAMA_HOST=http://ollama:11434  # CHANGE THIS WHEN USING NATIVE HOST MAC-MINI GPUs
       - PYTHONUNBUFFERED=1
       - HF_TOKEN=${HF_TOKEN}
       - BACKEND_PORT=${BACKEND_PORT}
@@ -33,7 +33,7 @@ services:
     ports:
       - "${BACKEND_PORT}:${BACKEND_PORT}"
     depends_on:
-      - ollama
+      - ollama # COMMENT THIS OUT WHEN USING NATIVE HOST MAC-MINI GPUs
       - db-${DB_SUFFIX}
 
   frontend:
@@ -49,6 +49,6 @@ services:
       - backend
 
 volumes:
-  ollama_models:
+  ollama_models: # COMMENT THIS OUT WHEN USING NATIVE HOST MAC-MINI GPUs
   pgdata:
 
