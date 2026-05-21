@@ -124,7 +124,7 @@ services:
     image: d0kkm96s7stm/rag-backend:latest 
     environment:
       - DATABASE_URL=postgresql://${DB_USER}:${DB_PASSWORD}@db-${DB_SUFFIX}:5432/${DB_NAME}
-      - OLLAMA_HOST=http://host.docker.internal:11434 # CHANGE THIS LINE WHEN USING NATIVE HOST MAC-MINI GPUs
+      - OLLAMA_HOST=http://host.docker.internal:11434 # CHANGE TO THIS WHEN USING NATIVE HOST MAC-MINI GPUs
       - PYTHONUNBUFFERED=1
       - HF_TOKEN=${HF_TOKEN}
     ...
