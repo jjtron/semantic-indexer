@@ -107,8 +107,8 @@ This application is designed to be fully isolated so you can run multiple instan
    BACKEND_PORT= change to something not yet used in your Docker network
    COMPOSE_PROJECT_NAME= change to something not yet used in your Docker network
 
-> 🚀 [!TIP]
-> If you are a MAC user with GPUs, and you want to utilize the full computing power of your machine,
+> [!TIP]
+> If you are a MAC user with GPUs, and you want to utilize the full computing power of your machine. (Your response to chat queries will be two to three times faster.)
 > 1. Install Ollama on your MAC
 > 2. Modify the provided docker-compose.yaml file as in the following snippet . . .
 
@@ -140,6 +140,9 @@ volumes:
   # ollama_models: # COMMENT THIS OUT WHEN USING NATIVE HOST MAC-MINI GPUs
   pgdata:
 ```
+> [!TIP]
+> continued
+> 
 > 3. Since this configuration means that you are no longer using the ollama service as in a Docker container, the Instruction step "docker compose exec ollama ollama run llama3.2:latest" does not apply.
 Therefore, becuase llama3.2:latest needs to be running in the Ollama engine on your MAC, you will need to run 
 
