@@ -101,6 +101,11 @@ This application is designed to be fully isolated so you can run multiple instan
 
    $\quad$ . . .
 
+3. **Change .env Ports and Project Name**
+   ```
+   FRONTEND_PORT= change to something not yet used in your Docker network
+   BACKEND_PORT= change to something not yet used in your Docker network
+   COMPOSE_PROJECT_NAME= change to something not yet used in your Docker network
 
 > 🚀 [!TIP]
 > If you are a MAC user with GPUs, and you want to utilize the full computing power of your machine,
