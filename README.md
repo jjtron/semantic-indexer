@@ -34,6 +34,16 @@ NOTE: the FRONTEND_PORT key is limited to 3000 through 3009
 
 Put your .env file in the root of your app folder
 
+IMPORTANT:
+
+```
+  If you changed DB_SUFFIX from 'one' to something different (EXAMPLE abc)
+
+  then you must change the docker-compose.yaml database service from 'db-one' to 'db-abc'.
+
+  See the section on Running Multiple Instances (Avoiding Name Clashes)
+```
+
 Run the following terminal command in the root of your app folder . . .
 
     ```bash
