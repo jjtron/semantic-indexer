@@ -30,6 +30,7 @@ services:
       - DB_SUFFIX=${DB_SUFFIX}
     volumes:
       - ./docs:/app/docs
+      - hf_cache:/root/.cache/huggingface
     ports:
       - "${BACKEND_PORT}:${BACKEND_PORT}"
     depends_on:
@@ -56,6 +57,7 @@ services:
         condition: service_healthy
 
 volumes:
+  hf_cache:
   ollama_models: # COMMENT THIS OUT WHEN USING NATIVE HOST MAC-MINI GPUs
   pgdata:
 
