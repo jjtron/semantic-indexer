@@ -60,7 +60,7 @@ Now, you can open up a browser and go to http://localhost:<FRONTEND_PORT as in y
     Recommended Requirements (For a smooth experience)
     This ensures fast response times (tokens per second) and snappy vector search performance.
 
-    RAM: 32 GB
+    RAM: 24 GB
 
     Why: Gives the backend plenty of breathing room for chunking documents, 
     embedding generation, and handling concurrent requests without bottlenecking the system.
