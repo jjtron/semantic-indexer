@@ -35,6 +35,12 @@ services:
     depends_on:
       - ollama # COMMENT THIS OUT WHEN USING NATIVE HOST MAC-MINI GPUs
       - db-${DB_SUFFIX}
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:${BACKEND_PORT}/health', timeout=2)"]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+      start_period: 60s
 
   frontend:
     image: d0kkm96s7stm/rag-frontend:1.0
@@ -46,7 +52,8 @@ services:
     stdin_open: true
     tty: true
     depends_on:
-      - backend
+      backend:
+        condition: service_healthy
 
 volumes:
   ollama_models: # COMMENT THIS OUT WHEN USING NATIVE HOST MAC-MINI GPUs
