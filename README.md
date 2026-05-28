@@ -88,6 +88,11 @@ Now, you can open up a browser and go to http://localhost:<FRONTEND_PORT as in y
 > ```
 > docker compose up -d
 
+> [!TIP]
+> For help on how to use the User Interface at http://localhost:<FRONTEND_PORT> . . .
+>
+> Click the Chat button and type the exaxct words, Manage Knowledge Base, into the input box at the botton of the page 
+
 ## 🚀 Hardware Requirements
     Recommended Requirements (For a smooth experience)
     This ensures fast response times (tokens per second) and snappy vector search performance.
