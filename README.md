@@ -68,6 +68,10 @@ The following five steps should be used for the first time start up of the app i
     to fetch the pre-trained model weights, tokenizer, and configuration files from the Hugging Face Hub.
     Once this has been accomplished, subsequent startups will be significantly faster.
 
+    To verify that the backend is ready before proceeding to the next step, look at the backend container log for an INFO report . . .
+
+    INFO:     127.0.0.1:<#####> - "GET /health HTTP/1.1" 200 OK
+
 4. run this command in the terminal
 
     docker compose start frontend
