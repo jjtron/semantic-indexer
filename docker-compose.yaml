@@ -17,7 +17,7 @@ services:
       - pgdata:/var/lib/postgresql/data
 
   backend:
-    image: d0kkm96s7stm/rag-backend:1.2
+    image: d0kkm96s7stm/rag-backend:1.3
     environment:
       - DATABASE_URL=postgresql://${DB_USER}:${DB_PASSWORD}@db-${DB_SUFFIX}:5432/${DB_NAME}
       - OLLAMA_HOST=http://ollama:11434  # CHANGE THIS WHEN USING NATIVE HOST MAC-MINI GPUs
