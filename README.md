@@ -45,21 +45,23 @@ IMPORTANT:
   See the section on Running Multiple Instances (Avoiding Name Clashes)
 ```
 
-Run the following terminal command in the root of your app folder . . .
+FIRST TIME START UP:
+
+1. Run the following terminal command in the root of your app folder . . .
 
     docker compose up --no-start
 
-The following five steps should be used for the first time start up of the app in Docker.
-
-1. run this command in the terminal
-
-    docker compose start ollama
+    NOTE: This downloads the images from Docker Hub and may take a few minutes
 
 2. run this command in the terminal
 
+    docker compose start ollama
+
+3. run this command in the terminal
+
     docker compose start db-<the string you assigned to DB_SUFFIX in the .env file>
     
-3. run this command in the terminal
+4. run this command in the terminal
 
     docker compose start backend
 
@@ -72,19 +74,25 @@ The following five steps should be used for the first time start up of the app i
 
     INFO:     127.0.0.1:<#####> - "GET /health HTTP/1.1" 200 OK
 
-4. run this command in the terminal
+5. run this command in the terminal
 
     docker compose start frontend
 
-5. run this command in the terminal
+6. run this command in the terminal
 
     docker compose exec ollama ollama pull llama3.2:latest
+
+    NOTE: This downloads the llama3.2:latest LLM and may take a few minutes
+
+7. run this command in the terminal
+
+    docker compose up -d
 
 
 Now, you can open up a browser and go to http://localhost:<FRONTEND_PORT as in your .env file>
 
 > [!TIP]
-> Subsequent startups of the app may be accomplished in the terminal simply with
+> Subsequent startups of the app may be simply accomplished in the terminal with one command
 > ```
 > docker compose up -d
 
