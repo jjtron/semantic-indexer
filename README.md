@@ -64,8 +64,9 @@ The following five steps should be used for the first time start up of the app i
     docker compose start backend
 
     NOTE: it may take a few minutes to start this service.
-    It needs to download (from the internet), for the first time, the HF_TOKEN.
-    Once this has been accomplished, succeeding startup will be significantly faster.
+    It needs to download (from the internet), for the first time, using the HF_TOKEN
+    to fetch the pre-trained model weights, tokenizer, and configuration files from the Hugging Face Hub.
+    Once this has been accomplished, subsequent startups will be significantly faster.
 
 4. run this command in the terminal
 
