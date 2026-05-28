@@ -22,7 +22,7 @@ Make your .env file with keys as in the following EXAMPLE .env file
 
 NOTE: the FRONTEND_PORT key is limited to 3000 through 3009
 
-    ```
+```
     HF_TOKEN=your_huggingface_token_here
     DB_SUFFIX=one
     DB_USER=user
@@ -31,6 +31,7 @@ NOTE: the FRONTEND_PORT key is limited to 3000 through 3009
     FRONTEND_PORT=3000
     BACKEND_PORT=8080
     COMPOSE_PROJECT_NAME=project_one
+```
 
 Put your .env file in the root of your app folder
 
@@ -46,15 +47,41 @@ IMPORTANT:
 
 Run the following terminal command in the root of your app folder . . .
 
-    ```bash
-    docker compose up -d
+    docker compose up --no-start
 
-Finally, run this command in the terminal
+The following five steps should be used for the first time start up of the app in Docker.
 
-    ```bash
-    docker compose exec ollama ollama run llama3.2:latest
+1. run this command in the terminal
+
+    docker compose start ollama
+
+2. run this command in the terminal
+
+    docker compose start db-<the string you assigned to DB_SUFFIX in the .env file>
+    
+3. run this command in the terminal
+
+    docker compose start backend
+
+    NOTE: it may take a few minutes to start this service.
+    It needs to download (from the internet), for the first time, the HF_TOKEN.
+    Once this has been accomplished, succeeding startup will be significantly faster.
+
+4. run this command in the terminal
+
+    docker compose start frontend
+
+5. run this command in the terminal
+
+    docker compose exec ollama ollama pull llama3.2:latest
+
 
 Now, you can open up a browser and go to http://localhost:<FRONTEND_PORT as in your .env file>
+
+> [!TIP]
+> Subsequent startups of the app may be accomplished in the terminal simply with
+> ```
+> docker compose up -d
 
 ## 🚀 Hardware Requirements
     Recommended Requirements (For a smooth experience)
@@ -77,7 +104,7 @@ Now, you can open up a browser and go to http://localhost:<FRONTEND_PORT as in y
 
 ## 🚀 Running Multiple Instances (Avoiding Name Clashes)
 
-This application is designed to be fully isolated so you can run multiple instances of it side-by-side on the same machine. However, due to limitations in Docker Compose's configuration parsing, you must manually align your service naming if you change the database suffix.
+This application is designed to be fully isolated so you can run multiple instances of it side-by-side on the same machine. However, due to limitations in Docker Compose's configuration parsing, you must manually align your naming of the database service if you use a database suffix other than 'one' in the .env file
 
 ### $\quad$ Steps to Deploy an Additional Instance:
 
@@ -108,7 +135,12 @@ This application is designed to be fully isolated so you can run multiple instan
    COMPOSE_PROJECT_NAME= change to something not yet used in your Docker network
 
 > [!TIP]
-> If you are a MAC user with GPUs, and you want to utilize the full computing power of your machine. (Your response to chat queries will be two to three times faster.)
+> Using Docker, chat query response time may be up to 60 seconds (on a Mac-Mini, M4 chip computer).
+>
+> If you are a MAC user with GPUs, and you want to utilize the full computing power of your machine,
+>
+> your response to chat queries will be two to three times faster.
+>
 > 1. Install Ollama on your MAC
 > 2. Modify the provided docker-compose.yaml file as in the following snippet . . .
 
@@ -144,8 +176,8 @@ volumes:
 > continued
 > 
 > 3. Since this configuration means that you are no longer using the ollama service as in a Docker container, the Instruction step "docker compose exec ollama ollama run llama3.2:latest" does not apply.
-Therefore, becuase llama3.2:latest needs to be running in the Ollama engine on your MAC, you will need to run 
+Therefore, becuase llama3.2:latest needs to be running in the Ollama engine on your MAC, you will need to run this terminal command . . .
 
->     ```bash
->     ollama run llama3.2:latest
+> ```
+> ollama run llama3.2:latest
 
